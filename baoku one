@@ -1,0 +1,21 @@
+		ifs.open("/sys/class/power_supply/battery/status", ios::in);
+		while (ifs >> bufh)
+		{
+			string hellomdfk = "Di";
+			string bufhh;
+			bufhh = bufh;
+			string::size_type hchaz;
+			hchaz = bufhh.find(hellomdfk);
+			if (hchaz == string::npos)
+			{
+				cout << "充" << bufh;
+				ifs.close();
+				ifs.open("/sys/class/power_supply/battery/input_suspend", ios::in);
+				while (ifs >> buf)
+				{
+					if (atoi(buf) == 0)
+					{
+						cout << "允许充电" << endl;
+						ifs.close();
+						ifs.open("/sys/class/power_supply/battery/capacity", ios::in);
+						while (ifs >> buf)
